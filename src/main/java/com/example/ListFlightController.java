@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,13 +23,15 @@ public class ListFlightController {
 
     public List<Flight> getFlights() {
         Flight flight1 = new Flight();
-        flight1.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
+        flight1.setDeparts(LocalDateTime.parse("2017-04-21T14:34"));
+//        flight1.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
         List<ListFlightController.Ticket> tickets1 = new ArrayList<>();
         tickets1.add(new Ticket(new Passenger("Some name","Some other name"),200));
         flight1.setTickets(tickets1);
 
         Flight flight2 = new Flight();
-        flight2.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
+        flight2.setDeparts(LocalDateTime.parse("2017-04-21T14:34"));
+//        flight2.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
         List<ListFlightController.Ticket> tickets2 = new ArrayList<>();
         tickets2.add(new Ticket(new Passenger("Some name",null),400));
         flight2.setTickets(tickets2);
@@ -38,17 +40,17 @@ public class ListFlightController {
     }
 
     public static class Flight {
-        private Date departs;
         private List<ListFlightController.Ticket> tickets;
-
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-
-        public Date getDeparts() {
+        public LocalDateTime getDeparts() {
             return departs;
         }
 
+
+        @JsonFormat( pattern = "yyyy-MM-dd HH:mm")
+        private LocalDateTime departs;
+
         @JsonProperty("Departs")
-        public void setDeparts(Date departs) {
+        public void setDeparts(LocalDateTime departs) {
             this.departs = departs;
         }
 

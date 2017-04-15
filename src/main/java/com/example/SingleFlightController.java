@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,24 +19,27 @@ public class SingleFlightController {
     @GetMapping("/flight")
     public Flight getFlight() {
         Flight flight = new Flight();
-        flight.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
+        flight.setDeparts(LocalDateTime.parse("2017-04-21T14:34"));
+//        2017-04-21 14:34
+//        flight.setDeparts(new Date(2017-1900,04-1,21,14-6,34));
         List<Ticket> tickets = new ArrayList<>();
         tickets.add(new Ticket(new Passenger("Some name","Some other name"),200));
         flight.setTickets(tickets);
         return flight;
     }
 
-
+//2017-04-21 14:34
     public static class Flight {
-        private Date departs;
+        @JsonFormat( pattern = "yyyy-MM-dd HH:mm")
+        private LocalDateTime departs;
         private List<Ticket> tickets;
 
-        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-        public Date getDeparts() {
+
+        public LocalDateTime getDeparts() {
             return departs;
         }
 
-        public void setDeparts(Date departs) {
+        public void setDeparts(LocalDateTime departs) {
             this.departs = departs;
         }
 
