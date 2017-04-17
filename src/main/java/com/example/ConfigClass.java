@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ConfigClass {
 
     @Bean
-    public WordCounter counter(){
+    public WordCounter wordCounter(){
         return new WordCounter();
     }
 
