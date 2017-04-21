@@ -58,12 +58,13 @@ public class LessonsControllerTest {
     @Transactional
     @Rollback
     public void testPatch() throws Exception {
-        MockHttpServletRequestBuilder request = patch("/lessons/5")
+        MockHttpServletRequestBuilder request = patch("/lessons/3")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":5,\"title\":\"Yuxiang Chen\"}");
+                .content("{\"id\":3,\"title\":\"Yuxiang Chen\"}");
 
         this.mvc.perform(request)
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(3)))
                 .andExpect(jsonPath("$.title", is("Yuxiang Chen")));
     }
 

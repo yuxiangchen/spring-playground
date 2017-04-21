@@ -32,7 +32,6 @@ public class WordCounterControllerTest {
         this.mvc.perform(requestBuilder)
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.to", is(2)))
-                .andExpect(jsonPath("$.the", is(2)))
                 .andExpect(jsonPath("$.moon", is(2)));
     }
 }

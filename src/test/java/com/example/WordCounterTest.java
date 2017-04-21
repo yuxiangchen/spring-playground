@@ -26,7 +26,6 @@ public class WordCounterTest {
 
         Map<String,Integer> map = new HashMap<>();
 
-        map.put("the",2);
         map.put("moon",2);
         map.put("to",2);
 
