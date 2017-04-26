@@ -49,8 +49,4 @@ public class ConfigClass {
             this.skip = skip;
         }
     }
-
-
-
-
 }
