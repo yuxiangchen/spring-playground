@@ -20,9 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().mvcMatchers("/flights/**", "/math/**").permitAll();
+        http.authorizeRequests().mvcMatchers("/admin/**").hasRole("MANAGER");
         http.authorizeRequests().anyRequest().authenticated();
     }
-
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
