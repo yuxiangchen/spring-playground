@@ -23,15 +23,6 @@ public class Movies {
     private final RestTemplate restTemplate = new RestTemplate();
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-//    @GetMapping("/movies")
-//    public String getMoviesMap(@RequestParam String q) {
-//        return this.restTemplate.getForObject(
-//                "http://www.omdbapi.com/?s={q}",
-//                String.class,
-//                q
-//        );
-//    }
-
     @GetMapping("/movies")
     public String getMoviesMap(@RequestParam String q) throws Exception{
         JsonNode jsonOriginal = objectMapper.readTree
@@ -56,6 +47,4 @@ public class Movies {
 
         return objectMapper.writeValueAsString(result);
     }
-
-
 }
