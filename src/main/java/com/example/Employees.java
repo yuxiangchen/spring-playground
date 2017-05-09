@@ -1,18 +1,22 @@
 package com.example;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by trainer8 on 5/7/17.
  */
 @Entity
-//@Data
-public class Employees {
+@Data
+public class Employees implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonView(EmployeesView.EmployeesOnly.class)
@@ -26,44 +30,82 @@ public class Employees {
     @JsonView(EmployeesView.EmployeesOnly.class)
     private Long managerId;
 
-    public Employees(String name, int salary, Long managerId) {
-        this.name = name;
-        this.salary = salary;
-        this.managerId = managerId;
+    @Column(unique=true)
+    private String username;
+
+    @JsonIgnore
+    private String password;
+
+    private String role;
+
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public Employees() {
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + this.role));
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
-
-    public Long getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(Long managerId) {
-        this.managerId = managerId;
-    }
+//    public Employees(String name, int salary, Long managerId) {
+//        this.name = name;
+//        this.salary = salary;
+//        this.managerId = managerId;
+//    }
+//
+//    public Employees() {
+//    }
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public int getSalary() {
+//        return salary;
+//    }
+//
+//    public void setSalary(int salary) {
+//        this.salary = salary;
+//    }
+//
+//    public Long getManagerId() {
+//        return managerId;
+//    }
+//
+//    public void setManagerId(Long managerId) {
+//        this.managerId = managerId;
+//    }
 }

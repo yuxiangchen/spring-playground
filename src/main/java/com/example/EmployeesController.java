@@ -1,6 +1,8 @@
 package com.example;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class EmployeesController {
+    @Autowired
     private EmployeesRepository repository;
 
     public EmployeesController(EmployeesRepository repository) {
@@ -21,18 +24,10 @@ public class EmployeesController {
         return this.repository.findAll();
     }
 
-
-
-//    @JsonView(EmployeesView.EmployeesOnly.class)
-//    @GetMapping("/employees")
-//    public Iterable<Employees> getEmployees() {
-//        return this.repository.findAll();
-//    }
-//    @JsonView(EmployeesView.EmployeesOnly.class)
-//    @GetMapping("/employees")
-//    public Iterable<Employees> allOfEmployeeExceptSalary() {
-//        return this.repository.findAll();
-//    }
+    @GetMapping("/me")
+    public Employees getMe(@AuthenticationPrincipal Employees employees) {
+        return employees;
+    }
 
 
 }
